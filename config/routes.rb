@@ -1,5 +1,10 @@
 UrlShortener::Application.routes.draw do
   resources :shorteners
+  resources :clicks
+
+  resources :shorteners do 
+    resources :clicks
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
