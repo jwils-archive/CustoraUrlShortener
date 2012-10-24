@@ -95,7 +95,7 @@ end
   # DELETE /shorteners/1.json
   def destroy
     @shortener = Shortener.find(params[:id])
-    redirect_to(@shortener) and return if not @shortener.check_password(params[:password])
+    redirect_to(@shortener) and return if not @shortener.check_password(params[:shortener][:password])
     @shortener.destroy
     respond_to do |format|
       format.html { redirect_to shorteners_url }

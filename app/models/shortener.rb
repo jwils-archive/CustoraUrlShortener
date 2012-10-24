@@ -9,7 +9,7 @@ class Shortener < ActiveRecord::Base
   before_save :generate_hash
 
   def check_password( password)
-      if BCrypt::Password.new(self.password_hash).is_password? password
+      if BCrypt::Password.new(self.password_hash) ==  password
         return true
       end
   end
@@ -24,7 +24,7 @@ class Shortener < ActiveRecord::Base
 
   def generate_hash
     if self.url_hash.nil?
-      self.url_hash = (0...8).map{65.+(rand(26*2 + 10)).chr}.join
+      self.url_hash = (0...8).map{55.+(rand(26*2 + 10)).chr}.join
     end
   end
 end
