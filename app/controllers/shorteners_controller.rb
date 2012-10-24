@@ -13,7 +13,7 @@ class ShortenersController < ApplicationController
   # GET /shorteners/1
   # GET /shorteners/1.json
   def show
-    @shortener = Shortener.find_url_by_hash(params[:hash])
+    @shortener = Shortener.find_by_url_hash(params[:id])
     redirect_to @shortener.url
   end
 
