@@ -36,7 +36,8 @@ class ShortenersController < ApplicationController
   # POST /shorteners
   # POST /shorteners.json
   def create
-    @shortener = Shortener.new(params[:shortener])
+    @shortener = Shortener.new(:url => params[:shortener][:url])
+    @shortener.password = params[:shortener][:password]
 
     respond_to do |format|
       if @shortener.save

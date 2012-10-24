@@ -6,6 +6,7 @@ UrlShortener::Application.routes.draw do
     resources :clicks
   end
 
+  match '/:id' => 'shorteners#show'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
