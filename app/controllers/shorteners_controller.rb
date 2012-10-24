@@ -1,4 +1,5 @@
 class ShortenersController < ApplicationController
+  protect_from_forgery :except => :create
 
   # GET /shorteners
   # GET /shorteners.json
@@ -46,13 +47,20 @@ class ShortenersController < ApplicationController
   # POST /shorteners
   # POST /shorteners.json
   def create
-    @shortener = Shortener.new(:url => params[:shortener][:url])
-    @shortener.password = params[:shortener][:password]
-
+    if params[:url]
+      @shortener = Shortener.new(:url => params[:url])
+    else
+      @shortener = Shortener.new(:url => params[:shortener][:url])
+      @shortener.password = params[:shortener][:password]
+    end
     respond_to do |format|
       if @shortener.save
-        format.html { redirect_to @shortener, notice: 'Shortener was successfully created.' }
-        format.json { render json: @shortener, status: :created, location: @shortener }
+          if params[:url]
+            format.json { render json: @shortener, status: :created, location: @shortener }
+          else
+            format.html { redirect_to @shortener, notice: 'Shortener was successfully created.' }
+            format.json { render json: @shortener, status: :created, location: @shortener }
+          end
       else
         format.html { render action: "new" }
         format.json { render json: @shortener.errors, status: :unprocessable_entity }
@@ -76,12 +84,19 @@ class ShortenersController < ApplicationController
     end
   end
 
+def delete
+      @shortener = Shortener.find( params[:id] )
+      respond_to do |format|
+        format.html # delete.html.erb
+    end
+end
+
   # DELETE /shorteners/1
   # DELETE /shorteners/1.json
   def destroy
     @shortener = Shortener.find(params[:id])
+    redirect_to(@shortener) and return if not @shortener.check_password(params[:password])
     @shortener.destroy
-
     respond_to do |format|
       format.html { redirect_to shorteners_url }
       format.json { head :no_content }
