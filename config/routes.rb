@@ -6,7 +6,7 @@ UrlShortener::Application.routes.draw do
     resources :clicks
   end
 
-  match '/:id' => 'shorteners#show'
+  match '/:url_hash' => 'shorteners#redirect'
 
   root :to => "shorteners#new"
   # The priority is based upon order of creation:

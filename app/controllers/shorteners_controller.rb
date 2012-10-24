@@ -1,4 +1,5 @@
 class ShortenersController < ApplicationController
+
   # GET /shorteners
   # GET /shorteners.json
   def index
@@ -9,14 +10,23 @@ class ShortenersController < ApplicationController
       format.json { render json: @shorteners }
     end
   end
-
   # GET /shorteners/1
   # GET /shorteners/1.json
   def show
-    @shortener = Shortener.find_by_url_hash(params[:id])
-    redirect_to @shortener.url
+    @shortener = Shortener.find(params[:id])
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @shorteners }
+    end
   end
 
+  def redirect
+    @shortener = Shortener.find_by_url_hash(params[:url_hash])
+    @click = Click.new(:ip_address => request.remote_ip)
+    @click.shortener = @shortener
+    @click.save
+    redirect_to @shortener.url
+  end
   # GET /shorteners/new
   # GET /shorteners/new.json
   def new
