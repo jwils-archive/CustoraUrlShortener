@@ -13,12 +13,8 @@ class ShortenersController < ApplicationController
   # GET /shorteners/1
   # GET /shorteners/1.json
   def show
-    @shortener = Shortener.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @shortener }
-    end
+    @shortener = Shortener.find_url_by_hash(params[:hash])
+    redirect_to @shortener.url
   end
 
   # GET /shorteners/new
