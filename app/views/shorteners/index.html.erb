@@ -1,0 +1,27 @@
+<h1>Listing shorteners</h1>
+
+<table>
+  <tr>
+    <th>Url</th>
+    <th>Hash</th>
+    <th>Password hash</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @shorteners.each do |shortener| %>
+  <tr>
+    <td><%= shortener.url %></td>
+    <td><%= shortener.hash %></td>
+    <td><%= shortener.password_hash %></td>
+    <td><%= link_to 'Show', shortener %></td>
+    <td><%= link_to 'Edit', edit_shortener_path(shortener) %></td>
+    <td><%= link_to 'Destroy', shortener, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Shortener', new_shortener_path %>

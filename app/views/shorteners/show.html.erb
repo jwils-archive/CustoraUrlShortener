@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Url:</b>
+  <%= @shortener.url %>
+</p>
+
+<p>
+  <b>Hash:</b>
+  <%= @shortener.hash %>
+</p>
+
+<p>
+  <b>Password hash:</b>
+  <%= @shortener.password_hash %>
+</p>
+
+
+<%= link_to 'Edit', edit_shortener_path(@shortener) %> |
+<%= link_to 'Back', shorteners_path %>

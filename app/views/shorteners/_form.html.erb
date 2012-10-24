@@ -1,0 +1,29 @@
+<%= form_for(@shortener) do |f| %>
+  <% if @shortener.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@shortener.errors.count, "error") %> prohibited this shortener from being saved:</h2>
+
+      <ul>
+      <% @shortener.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :url %><br />
+    <%= f.text_field :url %>
+  </div>
+  <div class="field">
+    <%= f.label :hash %><br />
+    <%= f.text_field :hash %>
+  </div>
+  <div class="field">
+    <%= f.label :password_hash %><br />
+    <%= f.text_field :password_hash %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
