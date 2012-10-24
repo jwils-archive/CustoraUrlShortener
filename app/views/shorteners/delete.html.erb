@@ -1,0 +1,6 @@
+<h2>Please enter your password to delete:</h2>
+<%= form_for @shortener, :html => { :method => 'delete' } do |f| %>
+  <%= f.label "password"%>
+  <%= f.password_field "password"%>
+<%= submit_tag "Delete" %>
+<% end %>
